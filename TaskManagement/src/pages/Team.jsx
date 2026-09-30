@@ -1,6 +1,10 @@
-import StatCard from "../components/dashboard/StatCard";
+import { useState } from "react";
+import { Plus } from "lucide-react";
 
-const teamMembers = [
+import StatCard from "../components/dashboard/StatCard";
+import TeamModal from "../components/team/TeamModal";
+
+const initialTeamMembers = [
   {
     name: "Jin ",
     role: "Product Lead",
@@ -24,7 +28,15 @@ const teamMembers = [
   },
 ];
 
-const Team = ({ onNewTask }) => {
+const Team = () => {
+  const [teamMembers, setTeamMembers] = useState(initialTeamMembers);
+  const [showTeamModal, setShowTeamModal] = useState(false);
+
+  const handleAddTeamMember = (newMember) => {
+    setTeamMembers((members) => [...members, newMember]);
+    setShowTeamModal(false);
+  };
+
   return (
     <div className="space-y-6">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
@@ -38,7 +50,7 @@ const Team = ({ onNewTask }) => {
         </div>
 
         <button
-          onClick={onNewTask}
+          onClick={() => setShowTeamModal(true)}
           className="
             flex
             items-center
@@ -55,12 +67,13 @@ const Team = ({ onNewTask }) => {
             hover:bg-indigo-500
           "
         >
-         +  New task
+          <Plus size={17} />
+          Add new team
         </button>
       </div>
 
       <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
-        <StatCard title="Active team" value={4} />
+        <StatCard title="Active team" value={teamMembers.length} />
         <StatCard title="On track" value={3} type="blue" />
         <StatCard title="Blocked" value={1} type="red" />
         <StatCard title="Sprint health" value="92%" type="green" />
@@ -69,7 +82,7 @@ const Team = ({ onNewTask }) => {
       <div className="grid gap-4 xl:grid-cols-3">
         {teamMembers.map((member) => (
           <div
-            key={member.name}
+            key={member.id ?? member.name}
             className="rounded-2xl border border-[var(--border)] bg-[var(--card)] p-5 shadow-sm"
           >
             <div className="flex items-center gap-3">
@@ -117,6 +130,13 @@ const Team = ({ onNewTask }) => {
           </div>
         ))}
       </div>
+
+      {showTeamModal && (
+        <TeamModal
+          onClose={() => setShowTeamModal(false)}
+          onAdd={handleAddTeamMember}
+        />
+      )}
     </div>
   );
 };

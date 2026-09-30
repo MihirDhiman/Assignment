@@ -459,7 +459,7 @@ const Dashboard = ({
   )}
 
   {activePage === "team" && (
-    <Team onNewTask={() => setShowTaskModal(true)} />
+    <Team />
   )}
 
 </div>
