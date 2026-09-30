@@ -99,7 +99,7 @@ const Sidebar = ({
 
         <NavItem
           icon={BarChart3}
-          label="Reports"
+          label="Manage Tasks"
         />
 
       </nav>
