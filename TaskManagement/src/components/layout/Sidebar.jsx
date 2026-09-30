@@ -4,6 +4,7 @@ import {
   BarChart3,
   Sun,
   Moon,
+  LogOut,
   X,
 } from "lucide-react";
 
@@ -259,6 +260,30 @@ const Sidebar = ({
           </div>
 
         </div>
+
+        <button
+          type="button"
+          className="
+            flex
+            w-full
+            items-center
+            gap-3
+            rounded-xl
+            border
+            border-[var(--border)]
+            bg-[var(--card)]
+            px-3
+            py-2.5
+            text-sm
+            font-medium
+            text-rose-500
+            transition
+            hover:bg-rose-500/10
+          "
+        >
+          <LogOut size={17} />
+          Log out
+        </button>
 
       </div>
 

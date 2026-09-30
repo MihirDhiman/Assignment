@@ -32,6 +32,16 @@ const Team = () => {
   const [teamMembers, setTeamMembers] = useState(initialTeamMembers);
   const [showTeamModal, setShowTeamModal] = useState(false);
 
+  const availableMembers = teamMembers.filter(
+    (member) => member.status === "Available",
+  ).length;
+  const reviewingMembers = teamMembers.filter(
+    (member) => member.status === "Reviewing",
+  ).length;
+  const testingMembers = teamMembers.filter(
+    (member) => member.status === "Testing",
+  ).length;
+
   const handleAddTeamMember = (newMember) => {
     setTeamMembers((members) => [...members, newMember]);
     setShowTeamModal(false);
@@ -73,10 +83,10 @@ const Team = () => {
       </div>
 
       <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
-        <StatCard title="Active team" value={teamMembers.length} />
-        <StatCard title="On track" value={3} type="blue" />
-        <StatCard title="Blocked" value={1} type="red" />
-        <StatCard title="Sprint health" value="92%" type="green" />
+        <StatCard title="Team members" value={teamMembers.length} />
+        <StatCard title="Available" value={availableMembers} type="blue" />
+        <StatCard title="Reviewing" value={reviewingMembers} type="red" />
+        <StatCard title="Testing" value={testingMembers} type="green" />
       </div>
 
       <div className="grid gap-4 xl:grid-cols-3">
@@ -96,8 +106,8 @@ const Team = () => {
                   .slice(0, 2)}
               </div>
               <div>
-                <h2 className="font-semibold text-[var(--text-primary)]">{member.name}</h2>
-                <p className="text-sm text-[var(--text-secondary)]">{member.role}</p>
+                <h2 className="font-semibold text-[var(--text-primary)]">{member.role}</h2>
+                <p className="text-sm text-[var(--text-secondary)]">{member.name}</p>
               </div>
             </div>
 
